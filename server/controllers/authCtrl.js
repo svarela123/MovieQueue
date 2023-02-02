@@ -10,12 +10,12 @@ const createToken = (username, id) => {
 
 module.exports = {
     register: async (req, res) => {
-        try{
+        try {
             const {username, password} = req.body
             let foundUser = await User.findOne ({where: {username}})
 
             if(foundUser){
-                res.status(400).send('That username is takne, please register with a different username or login')
+                res.status(400).send('That username is taken, please register with a different username or login.')
             } else {
                 const salt = bcrypt.genSaltSync(10)
                 const hash = bcrypt.hashSync(password, salt)
@@ -37,7 +37,35 @@ module.exports = {
             res.sendStatus(400)
         }
     },
-    login: (req,res) => {
-        console.log('login')
+    login: async (req,res) => {
+        try {
+            const {username, password} = req.body
+            const foundUser = await User.findOne({where: {username}})
+
+            if(foundUser){
+                const isAuthenticated = bcrypt.compareSync(password, foundUser.hashedPass)
+
+                if(isAuthenticated){
+                    const token = createToken(foundUser.username, foundUser.id)
+                    const exp = Date.now() + 1000 * 60 * 60 * 48
+                    res.status(200).send({
+                        username: foundUser.username,
+                        userId: foundUser.id,
+                        token,
+                        exp
+                    })
+                } else {
+                    res.status(400).send('That password is incorrect.')
+                }
+
+            } else {
+                res.status(400).send('There is no user with that username.')
+            }
+
+        } catch (err){
+            console.log(err)
+            res.sendStatus(400)
+        }
+
     }
 }
