@@ -9,6 +9,8 @@ const {MovieList} = require('./models/movieList')
 const {sequelize} = require('./util/database')
 
 const {register, login} = require('./controllers/authCtrl')
+const {addFriend, getUsers, getUserFriends} = require('./controllers/friendDetailCtrl')
+const {getMovieList} = require('./controllers/movieListCtrl')
 
 
 const app = express()
@@ -17,27 +19,31 @@ app.use(express.json())
 app.use(cors())
 
 Friend.belongsTo(User, {
-    as: 'befrienderId'
+    as: 'befriender'
 })
 
 Friend.belongsTo(User, {
-    as: 'befriendedId'
+    as: 'befriended'
 })
 
 MovieList.belongsTo(User, {
-    as: 'adderId'
+    as: 'adder'
 })
 
 MovieList.belongsTo(User, {
-    as: 'recipientId'
+    as: 'recipient'
 })
 
 app.post('/api/register', register)
 app.post('/api/login', login)
 
-// app.get('/api/frienddetail')
+app.get('/api/users', getUsers)
+app.post('/api/friendlist', addFriend)
+app.get('/api/friendlist/:userId', getUserFriends)
 
-// app.get('/api/movielist')
+app.get('/api/movielist', getMovieList)
+
+// app.get('/api/frienddetail')
 
 
 sequelize.sync()

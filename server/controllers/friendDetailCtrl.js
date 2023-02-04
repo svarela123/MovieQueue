@@ -1,52 +1,52 @@
-// import React, { useState } from 'react'; 
-// import Friend from './models/friend';
-// const {Friend} = require('../models/friend')
+const {User} = require('../models/user')
+const {Friend} = require('../models/friend')
 
-// module.exports = {
-//     addFriend : async (req, res) => {
-//         try {
-//             const {userId, friendId} = req.body
-//         }
-//         // console.log('')
-//     }
-// }
+module.exports = {
+    addFriend : async (req, res) => {
+        try {
+            const {userId, friendId} = req.body
+            console.log(req.body)
+            await Friend.create({
+                befrienderId: +userId,
+                befriendedId: friendId
+            })
 
-// const AddFriend = () => {
-//   const [userId, setUserId] = useState('');
-//   const [friendId, setFriendId] = useState('');
-//   const [status, setStatus] = useState('');
+            res.sendStatus(200)
 
-//   const addFriend = async () => {
-//     try {
-//       const newFriend = new Friend({
-//         befrienderId: userId,
-//         befriendedId: friendId
-//       });
-//       await newFriend.save();
-//       setStatus('Friend added successfully!');
-//     } catch (error) {
-//       setStatus('Error adding friend. Please try again.');
-//     }
-//   };
+        } catch(err) {
+            console.log(err)
+            res.sendStatus(400)
+        }
+    },
 
-//   return (
-//     <div>
-//       <input
-//         type="text"
-//         placeholder="User ID"
-//         value={userId}
-//         onChange={e => setUserId(e.target.value)}
-//       />
-//       <input
-//         type="text"
-//         placeholder="Friend ID"
-//         value={friendId}
-//         onChange={e => setFriendId(e.target.value)}
-//       />
-//       <button onClick={addFriend}>Add Friend</button>
-//       {status && <p>{status}</p>}
-//     </div>
-//   );
-// };
+    getUsers : async (req, res) => {
+        try {
 
-// export default AddFriend;
+            const allUsers = await User.findAll()
+            res.status(200).send(allUsers)
+
+        } catch(err) {
+            console.log(err)
+            res.sendStatus(400)
+        }
+    },
+
+    getUserFriends : async (req, res) => {
+        try {
+
+            const {userId} = req.params
+            const userFriends = await Friend.findAll({where: {befrienderId:userId},
+                include: [{model:User, as:"befriended"}]
+            })
+
+            res.status(200).send(userFriends)
+            
+
+        }catch(err) {
+            console.log(err)
+            res.sendStatus(400)
+        }
+    }
+
+
+}
