@@ -17,7 +17,6 @@ const FriendDetail = () => {
     try {
       const response = await axios.get(`/api/frienddetail/${id}`);
       setFriendDetails(response.data);
-      console.log("sergio",response.data);
     } catch (error) {
       console.error(error);
     }
@@ -46,7 +45,7 @@ const FriendDetail = () => {
         `http://localhost:4545/api/movielist/${id}`
       );
       setMovieList(res.data);
-      console.log("list", res.data, userId);
+      console.log(res.data, userId);
     } catch (error) {
       console.error(error);
     }

@@ -33,7 +33,7 @@ const getAllUsers = () => {
     fetchUsers();
     fetchUserFriend();
   }, []);
-
+  
   const handleAddFriend = async (friendId) => {
     try {
       await axios.post("http://localhost:4545/api/friendlist", {
@@ -51,6 +51,7 @@ const getAllUsers = () => {
   };
 
   console.log(friends);
+
 
   return (
     <div>
