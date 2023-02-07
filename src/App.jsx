@@ -16,7 +16,7 @@ function App() {
       <Routes>
         <Route index element={token ? <Navigate to='/home'/> : <Auth/>}/>
         <Route path='/home' element={token ? <Home/> : <Navigate to='/'/>}/>
-        <Route path='/frienddetail' element={ token ? <FriendDetail/> : <Navigate to='/'/>}/>
+        <Route path='/frienddetail/:id' element={ token ? <FriendDetail/> : <Navigate to='/'/>}/>
       </Routes>
     </div>
   );

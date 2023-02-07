@@ -9,8 +9,8 @@ const {MovieList} = require('./models/movieList')
 const {sequelize} = require('./util/database')
 
 const {register, login} = require('./controllers/authCtrl')
-const {addFriend, getUsers, getUserFriends} = require('./controllers/friendDetailCtrl')
-const {getMovieList} = require('./controllers/movieListCtrl')
+const {addFriend, getUsers, getUserFriends, getFriendDetails} = require('./controllers/friendDetailCtrl')
+const {getMovieList, addToFriendsList} = require('./controllers/movieListCtrl')
 
 
 const app = express()
@@ -41,9 +41,12 @@ app.get('/api/users', getUsers)
 app.post('/api/friendlist', addFriend)
 app.get('/api/friendlist/:userId', getUserFriends)
 
-app.get('/api/movielist', getMovieList)
+app.get('/api/movielist/:friendId', getMovieList)
+app.post('/api/movielist', addToFriendsList)
 
-// app.get('/api/frienddetail')
+app.get('/api/frienddetail/:userId', getFriendDetails)
+
+
 
 
 sequelize.sync()
