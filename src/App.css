@@ -1,38 +1,126 @@
-.App {
+
+/* --------- This is CSS Reset Code --------- */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+/* --------- Begin your CSS Below here --------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+#siteTitle {
+  font-size: 50px;
+  padding: 5vw;
+}
+
+.loginRegInput {
   text-align: center;
+  flex-wrap: wrap;
+  font-family: sans-serif;
+  width: 17%;
+  height: 25px;
+  border: none;
+  border:solid 1px #ccc;
+  border-radius: 5px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+html {
+  background: #272727;
+  color: rgb(0, 0, 0);
+  font-family: "Quicksand";
+  font-weight: bold;
+  font-size: larger;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+header {
+  font-size: 22px;
+  padding: 0px 10px;
+  display: flex;
+  height: 90px;
+  justify-content: flex-start;
+  align-items: center;
+  background: #E50914;
+}
+
+.addMovie {
+  color:white;
+  text-align: center;
+  padding: 100px;
+  font-size: 20px;
+}
+
+.addMovieTitle {
+  font-size: 40px;
+  padding: 50px;
+}
+
+.movieList {
+  padding: 20px;
+  list-style: none;
+}
+
+
+.menubtn {
+  font-size: 22px;
+  padding: 5px 40px;
+  margin: 50px;
+  color: #ffffff;
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  border-radius: 3px;
+  min-width: 125px;
+  text-decoration: none;
+  font-weight: normal;
+  font-family: "Quicksand";
+}
+
+.menubtn:hover {
+  cursor: pointer;
+}
+
+.lists {
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 100px;
 }
 
-.App-link {
-  color: #61dafb;
+.userList {
+  font-size: 40px;
+  padding: 50px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.greeting {
+  height: 44px;
+  font-size: 22px;
+  padding: 20px 20px;
+  color: #ffffff;
+  background-color: transparent;
+  border-radius: 3px;
+  min-width: 125px;
+  text-align: center;
+  font-family: "Quicksand";
+  font-weight: 600;
 }

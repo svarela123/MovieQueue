@@ -57,14 +57,14 @@ const FriendDetail = () => {
     getMovieList();
   }, []);
 
-  console.log(friendDetails);
+  // console.log(friendDetails);
 
-  console.log({ movieList });
+  // console.log({ movieList });
 
   return (
-    <div>
-      FriendDetail
-      <form onSubmit={addNewMovie}>
+    <div className="addMovie">
+      Add a movie to your friend's list!
+      <form onSubmit={addNewMovie} className="addMovie">
         <input
           type="text"
           value={movieName}
@@ -79,10 +79,11 @@ const FriendDetail = () => {
         />
         <button type="submit">Add Movie</button>
       </form>
-      <h2>Movie List</h2>
+      <h2 className="addMovieTitle">Friend's Movie List</h2>
       <ul>
         {movieList.map((movie) => (
           <li
+            className="movieList"
             key={movie.id}
             onClick={() => navigate.push("/api/movielist/:userId")}
           >

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import AuthContext from "../store/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
+
 
 const getAllUsers = () => {
   const [users, setUsers] = useState([]);
@@ -33,14 +35,21 @@ const getAllUsers = () => {
     fetchUsers();
     fetchUserFriend();
   }, []);
-  
+
+
   const handleAddFriend = async (friendId) => {
     try {
       await axios.post("http://localhost:4545/api/friendlist", {
         userId,
         friendId,
       });
-      alert("Friend has been added.");
+      Swal.fire({
+        icon: 'success',
+        title: 'Your friend has been added!',
+        showConfirmButton: false,
+        timer: 1800,
+      })
+      // alert("Friend has been added.");
     } catch (error) {
       console.error(error);
     }
@@ -52,10 +61,9 @@ const getAllUsers = () => {
 
   console.log(friends);
 
-
   return (
-    <div>
-      <h2>Users</h2>
+    <div className="lists">
+      <h2 className="userList">Users</h2>
       {users.map((user) =>
         user.id !== userId ? (
           <p key={user.id} onClick={() => handleAddFriend(user.id)}>
@@ -63,9 +71,12 @@ const getAllUsers = () => {
           </p>
         ) : null
       )}
- <h2>Friends</h2>
-      {friends.map(friend => (
-        <p key={friend.id} onClick={() => handleFriendDetail(friend.befriendedId)}>
+      <h2 className="userList">Friends</h2>
+      {friends.map((friend) => (
+        <p
+          key={friend.id}
+          onClick={() => handleFriendDetail(friend.befriendedId)}
+        >
           {friend.befriended.username}
         </p>
       ))}
