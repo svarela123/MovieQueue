@@ -22,6 +22,16 @@ const FriendDetail = () => {
     }
   };
 
+  const getMovieList = async () => {
+    try {
+      const res = await axios.get(`http://localhost:4545/api/movielist/${id}`);
+      setMovieList(res.data);
+      console.log(res.data, userId);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const addNewMovie = async (event) => {
     event.preventDefault();
     const body = {
@@ -34,18 +44,7 @@ const FriendDetail = () => {
     try {
       const res = await axios.post("/api/movielist", body);
       console.log(res.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getMovieList = async () => {
-    try {
-      const res = await axios.get(
-        `http://localhost:4545/api/movielist/${id}`
-      );
-      setMovieList(res.data);
-      console.log(res.data, userId);
+      getMovieList();
     } catch (error) {
       console.error(error);
     }
@@ -53,7 +52,6 @@ const FriendDetail = () => {
 
   useEffect(() => {
     getFriendDetails();
-    addNewMovie();
     getMovieList();
   }, []);
 
@@ -63,7 +61,7 @@ const FriendDetail = () => {
 
   return (
     <div className="addMovie">
-      Add a movie to your friend's list!
+      Add a movie to your friend's Movie Queue!
       <form onSubmit={addNewMovie} className="addMovie">
         <input
           type="text"
@@ -79,7 +77,7 @@ const FriendDetail = () => {
         />
         <button type="submit">Add Movie</button>
       </form>
-      <h2 className="addMovieTitle">Friend's Movie List</h2>
+      <h2 className="addMovieTitle">Friend's Movie Queue</h2>
       <ul>
         {movieList.map((movie) => (
           <li
@@ -87,7 +85,10 @@ const FriendDetail = () => {
             key={movie.id}
             onClick={() => navigate.push("/api/movielist/:userId")}
           >
-            {movie.movieName}
+            <h2>{movie.movieName}</h2>
+            <div className="movieImages" >
+              <img src={movie.imageUrl}/>
+            </div>
           </li>
         ))}
       </ul>

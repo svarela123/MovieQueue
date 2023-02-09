@@ -34,11 +34,30 @@ time, mark, audio, video {
   text-align: center;
   flex-wrap: wrap;
   font-family: sans-serif;
-  width: 17%;
+  width: 30%;
   height: 25px;
   border: none;
   border:solid 1px #ccc;
   border-radius: 5px;
+}
+
+#toggleAuth {
+  width: 11.5%;
+}
+
+#authContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#authContainer form {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  height: 350px;
 }
 
 *, *::before, *::after {
@@ -58,7 +77,7 @@ header {
   padding: 0px 10px;
   display: flex;
   height: 90px;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   background: #E50914;
 }
@@ -78,8 +97,22 @@ header {
 .movieList {
   padding: 20px;
   list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
+.movieImages {
+  display: flex;
+  justify-content: center;
+  width: 400px;
+}
+
+.movieImages img {
+  object-fit: cover;
+  width: 100%;
+}
 
 .menubtn {
   font-size: 22px;
@@ -104,12 +137,24 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 100px;
+  padding: 75px;
+}
+
+.user:hover {
+  cursor: pointer;
 }
 
 .userList {
   font-size: 40px;
+  padding: 20px;
+  padding-bottom: 20px;
+  padding-top: 75px;
+}
+
+.userListCaption {
+  font-size: 20px;
   padding: 50px;
+  padding-top: 10px;
 }
 
 .greeting {

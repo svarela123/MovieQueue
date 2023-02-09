@@ -10,27 +10,28 @@ const getAllUsers = () => {
   const [friends, setFriends] = useState([]);
   const { userId } = useContext(AuthContext);
   const navigate = useNavigate();
+  
+  const fetchUsers = async () => {
+    try {
+      const res = await axios.get("http://localhost:4545/api/users");
+      setUsers(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchUserFriend = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:4545/api/friendlist/${userId}`
+      );
+      setFriends(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const res = await axios.get("http://localhost:4545/api/users");
-        setUsers(res.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    const fetchUserFriend = async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:4545/api/friendlist/${userId}`
-        );
-        setFriends(res.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
     fetchUsers();
     fetchUserFriend();
@@ -43,13 +44,16 @@ const getAllUsers = () => {
         userId,
         friendId,
       });
+
+      fetchUsers();
+      fetchUserFriend();
+
       Swal.fire({
         icon: 'success',
         title: 'Your friend has been added!',
         showConfirmButton: false,
         timer: 1800,
       })
-      // alert("Friend has been added.");
     } catch (error) {
       console.error(error);
     }
@@ -59,27 +63,40 @@ const getAllUsers = () => {
     navigate(`/frienddetail/${friendId}`);
   };
 
-  console.log(friends);
+  console.log(friends, users);
 
   return (
     <div className="lists">
-      <h2 className="userList">Users</h2>
-      {users.map((user) =>
-        user.id !== userId ? (
-          <p key={user.id} onClick={() => handleAddFriend(user.id)}>
-            {user.username}
-          </p>
-        ) : null
-      )}
-      <h2 className="userList">Friends</h2>
+      <h2 className="userList">Friends List</h2>
+      <h3 className="userListCaption">(Select a Friend to view their Movie Queue.)</h3>
       {friends.map((friend) => (
         <p
           key={friend.id}
-          onClick={() => handleFriendDetail(friend.befriendedId)}
+          onClick={() => handleFriendDetail(friend.befriendedId)} className="user"
         >
           {friend.befriended.username}
         </p>
       ))}
+      <h2 className="userList">Users</h2>
+      <h3 className="userListCaption">(Select a User to add to your Friends list.)</h3>
+      {users.filter(user => {
+        let isFriend = false
+        friends.forEach(friend => {
+          if (user.id === friend.befriendedId) {
+            console.log(user, friend)
+            isFriend = true
+          }
+        })
+
+        return !isFriend
+
+      }).map((user) =>
+        user.id !== userId  ? (
+          <p key={user.id} onClick={() => handleAddFriend(user.id)} className="user">
+            {user.username}
+          </p>
+        ) : null
+      )}
     </div>
   );
 };

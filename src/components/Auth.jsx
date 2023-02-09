@@ -18,21 +18,19 @@ const Auth = () => {
 
     axios
       .post(register ? "/api/register" : "/api/login", body)
-      // .then(res => console.log(res.data))
       .then((res) =>
         authCtx.login(res.data.token, res.data.exp, res.data.userId)
       )
-      // .catch(err => console.log(err.response.data))
       .catch((err) => console.log(err));
   };
 
   // console.log(authCtx)
   return (
-    <div>
+    <div id="authContainer">
       {register ? (
         <form onSubmit={(e) => handleSubmit(e)}>
           <h2 className="greeting">
-            Welcome to MovieQueue! Please sign up below.
+            Welcome to Movie Queue! Please sign up below.
           </h2>
           <input
             className="loginRegInput"
@@ -49,7 +47,7 @@ const Auth = () => {
       ) : (
         <form onSubmit={(e) => handleSubmit(e)}>
           <h2 className="greeting">
-            Welcome to MovieQueue! Please login below.
+            Welcome to Movie Queue! Please login below.
           </h2>
           <input
             className="loginRegInput"
@@ -64,7 +62,7 @@ const Auth = () => {
           <button className="loginRegInput">Submit</button>
         </form>
       )}
-      <button className="loginRegInput" onClick={() => setRegister(!register)}>
+      <button className="loginRegInput" id="toggleAuth" onClick={() => setRegister(!register)}>
         Need to {register ? "login?" : "register?"}
       </button>
     </div>

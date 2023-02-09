@@ -7,31 +7,34 @@ const Header = () => {
   const { logout, token } = useContext(AuthContext);
   
 
-  // // const logoutAlert = () => {
-  //   Swal.fire({
-  //     title: 'Are you sure you want to logout?',
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#000000',
-  //     cancelButtonColor: '#d33',
-  //     confirmButtonText: 'Yes, Logout!'
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       Swal.fire(
-  //         'You have logged out!',
-  //       )
-  //     }
-  //   })
-  // // }
+  const logoutAlert = () => {
+    Swal.fire({
+      title: 'Leaving So Soon?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#000000',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Logout!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logout()
+        Swal.fire({
+          title:'Successfully logged out.',
+          showConfirmButton: false,
+          timer: 1500,
+      })
+      }
+    })
+  }
 
   return (
-    <header><h1 id="siteTitle">MovieQueue</h1>
+    <header><h1 id="siteTitle">Movie Queue</h1>
     <nav>
       {token && (
         <>
           <NavLink to="/home" className="menubtn">Home</NavLink>
-          <NavLink to="/frienddetail" className="menubtn">FriendDetail</NavLink>
-          <button onClick={() => logout()} className="menubtn" >Logout</button>
+          {/* <NavLink to="/frienddetail" className="menubtn">FriendDetail</NavLink> */}
+          <button onClick={() => logoutAlert()} className="menubtn" >Logout</button>
         </>
       )}
     </nav>

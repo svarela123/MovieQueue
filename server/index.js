@@ -50,6 +50,7 @@ app.get('/api/frienddetail/:userId', getFriendDetails)
 
 
 sequelize.sync()
+// sequelize.sync({force:true})
     .then(() => {
         app.listen(SERVER_PORT, () => console.log(`Take us to warp ${SERVER_PORT}!`))
     })
